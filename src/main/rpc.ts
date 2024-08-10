@@ -3,3 +3,4 @@ import { AniListAuthService } from "../application/services/AniListService";
 
 new DiscordService();
 AniListAuthService.initiateAuth();
+AniListAuthService.getAniListToken();
