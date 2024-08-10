@@ -1,13 +1,15 @@
 import axios from "axios";
 import { config } from "../../infrastructure/config/dotenvConfig";
 import opn from "opn";
+import { injectable } from "inversify";
 
 const authEndpoint = "https://anilist.co/api/v2/oauth/authorize";
 const tokenEndpoint = "https://anilist.co/api/v2/oauth/token";
 const responseType = "code";
 
+@injectable()
 export class AniListAuthService {
-  public static async initiateAuth(): Promise<void> {
+  public async initiateAuth(): Promise<void> {
     if (!config.anilistAuth) {
       try {
         const completeUrl = `${authEndpoint}?client_id=${config.anilistClientId}&redirect_uri=${config.anilistRedirect}&response_type=${responseType}`;
@@ -22,7 +24,7 @@ export class AniListAuthService {
     }
   }
 
-  public static async getAniListToken(): Promise<void> {
+  public async getAniListToken(): Promise<void> {
     if (config.anilistAuth && !config.anilistToken) {
       const requestOptions = {
         method: "POST",
