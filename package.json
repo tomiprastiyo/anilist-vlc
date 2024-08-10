@@ -2,14 +2,22 @@
     "name": "anilist-vlc",
     "version": "1.0.0",
     "description": "Anilist - VLC - Discord integration",
-    "main": "./src/main/rpc.js",
+    "main": "./src/main/rpc.ts",
     "scripts": {
-        "start": "node ./src/main/rpc.ts",
-        "dev": "nodemon ./src/main/rpc.ts"
+        "start": "ts-node src/main/rpc.ts",
+        "dev": "ts-node-dev --respawn --transpile-only src/main/rpc.ts"
     },
     "author": "PdBear",
     "license": "ISC",
     "dependencies": {
-        "inversify": "^6.0.2"
+        "@types/discord-rpc": "^4.0.8",
+        "discord-rpc": "^4.0.1",
+        "dotenv": "^16.4.5",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.5.4"
+    },
+    "devDependencies": {
+        "eslint": "^9.8.0"
     }
 }
