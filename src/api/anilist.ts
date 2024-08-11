@@ -67,9 +67,9 @@ const userWatchingList = async (): Promise<any[]> => {
 
 const mediaIdList = async (title: string): Promise<any[]> => {
   const query: string = `
-    query ($id: Int, $page: Int, $perPage: Int, $search: String) {
+    query ($page: Int, $perPage: Int, $search: String) {
       Page (page: $page, perPage: $perPage) {
-        media (id: $id, search: $search) {
+        media (search: $search) {
           id
           title {
             romaji 

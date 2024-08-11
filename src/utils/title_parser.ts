@@ -18,20 +18,17 @@ const getEpisode = (details: string): [string, string] => {
   }
 
   for (let part of parts) {
-    let match = part.match(/(episode\s?|ep|e)(\d+)/i);
-    if (match && validEp(match)) return [part.replace(match[0], ""), match[2]];
-
+    let match: RegExpMatchArray | any = part.match(/(episode\s?|ep|e)(\d+)/i);
+    if (match && !isNaN(Number(match[2])))
+      return [part.replace(match[0], ""), match[2]];
     match = part.match(/\d+x(\d+)/i);
-    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
-
+    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
     match = part.match(/(\d+)v\d+/i);
-    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
-
+    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
     match = part.match(/(\d+)$/i);
-    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
-
+    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
     match = part.match(/(\d+)/i);
-    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
+    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
   }
 
   return [parts.join(", "), ""];
