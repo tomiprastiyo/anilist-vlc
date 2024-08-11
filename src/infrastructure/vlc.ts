@@ -46,9 +46,17 @@ const getTitle = (xmlObject: any): string => {
   );
   const names: string[] = metaData.info.map((element: any) => element._text);
 
-  const titleIndex: number =
-    attributes.indexOf("filename") || attributes.indexOf("title");
-  return titleIndex !== -1 ? names[titleIndex] : "";
+  if (attributes.indexOf("filename") !== undefined) {
+    const filenameIndex: number = attributes.indexOf("filename");
+    return names[filenameIndex];
+  }
+
+  if (attributes.indexOf("title") !== undefined) {
+    const titleIndex: number = attributes.indexOf("title");
+    return names[titleIndex];
+  }
+
+  return "";
 };
 
 const getStatus = async (): Promise<any | null> => {
