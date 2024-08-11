@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
+import { config as dotenvConfig } from "dotenv";
 
-dotenv.config();
+dotenvConfig();
 
 export const config = {
   // VLC

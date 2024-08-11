@@ -6,8 +6,8 @@ const removeFileExtension = (title: string): string =>
   title.endsWith(".mkv") || title.endsWith(".mp4") ? title.slice(0, -4) : title;
 const replaceDelimiter = (title: string): string =>
   title.replace(/[\._]/g, " ");
-const validEp = (episode: any): boolean =>
-  episode && !isNaN(Number(episode[1]));
+const validEp = (episode: RegExpMatchArray | null): boolean =>
+  episode !== null && !isNaN(Number(episode[1]));
 
 const getEpisode = (details: string): [string, string] => {
   let parts: string[] = [details];
@@ -18,32 +18,27 @@ const getEpisode = (details: string): [string, string] => {
   }
 
   for (let part of parts) {
-    let match: any;
-
-    match = part.match(/(episode\s?|ep|e)(\d+)/i);
-    if (match && !isNaN(Number(match[2])))
-      return [part.replace(match[0], ""), match[2]];
+    let match = part.match(/(episode\s?|ep|e)(\d+)/i);
+    if (match && validEp(match)) return [part.replace(match[0], ""), match[2]];
 
     match = part.match(/\d+x(\d+)/i);
-    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
+    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
 
     match = part.match(/(\d+)v\d+/i);
-    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
+    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
 
     match = part.match(/(\d+)$/i);
-    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
+    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
 
     match = part.match(/(\d+)/i);
-    if (validEp(match)) return [part.replace(match[0], ""), match[1]];
+    if (match && validEp(match)) return [part.replace(match[0], ""), match[1]];
   }
 
-  return [details, ""];
+  return [parts.join(", "), ""];
 };
 
-export const parseTitle = (
-  title: string
-): { title: string; episode: string } => {
-  let parsedTitle = title.trim();
+const parseTitle = (title: string): { title: string; episode: string } => {
+  let parsedTitle: string = title.trim();
 
   if (parsedTitle.includes("&#39;")) {
     parsedTitle = parsedTitle.replace(/&#39;/g, "'");
@@ -82,3 +77,5 @@ export const parseTitle = (
     episode: episodeNumber,
   };
 };
+
+export default parseTitle;
