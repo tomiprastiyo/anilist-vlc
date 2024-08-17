@@ -61,10 +61,8 @@ const buildActivity = (vlcStatus: any, parsedTitle: any, aniImage: any) => {
   }
 
   if (vlcStatus.state === "playing") {
-    const timeRemaining = Math.round(
-      Date.now() / 1000 + (vlcStatus.length - vlcStatus.time)
-    );
-    activity.endTimestamp = timeRemaining;
+    const startTimestamp = Math.round(Date.now() / 1000 - vlcStatus.time);
+    activity.startTimestamp = startTimestamp;
   }
 
   return { activity, stateCapitalized };
