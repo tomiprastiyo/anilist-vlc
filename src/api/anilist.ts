@@ -82,7 +82,7 @@ const mediaIdList = async (title: string): Promise<any[]> => {
   const variables: { search: string; page: number; perPage: number } = {
     search: title,
     page: 1,
-    perPage: 5,
+    perPage: 20,
   };
 
   const data: any = await getData(query, variables);
