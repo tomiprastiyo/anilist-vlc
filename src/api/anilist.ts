@@ -29,7 +29,7 @@ const userWatchingList = async (): Promise<any[]> => {
           currentPage
           hasNextPage
         }
-        mediaList (userName: $userName, status_in: [PLANNING, CURRENT, REPEATING], type: ANIME) {
+        mediaList (userName: $userName, status_in: [PLANNING, CURRENT, REPEATING], type: ANIME, sort:MEDIA_TITLE_ROMAJI) {
           mediaId
           media {
             title {
