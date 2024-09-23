@@ -60,6 +60,7 @@ const parseTitle = (title: string): { title: string; episode: string } => {
   parsedTitle = parsedTitle
     .replace(" Episode Movie", " Episode 01")
     .replace(" Episode OVA", " Episode")
+    .replace(" END Subbed", "")
     .replace(" Subbed", "")
     .replace("BD", "");
 
